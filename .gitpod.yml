@@ -4,7 +4,7 @@ image:
 
 tasks:
   - command: |
-      deno run --allow-net --unstable webserver.ts
+      deno run --allow-net --unstable main.ts
 
 ports:
   - port: 8080
