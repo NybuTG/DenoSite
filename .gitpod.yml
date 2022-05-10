@@ -3,6 +3,9 @@ image:
 
 
 tasks:
+  - name: Startup
+    command: sh ./scripts/startup.sh
+    
   - command: |
       deno run --allow-net --unstable main.ts
 
