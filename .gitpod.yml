@@ -1,19 +1,9 @@
 image:
-  file: .gitpod.Dockerfile
-
-
+  file: Dockerfile
 tasks:
   - command: |
-      deno run --allow-net --unstable main.ts
-
+      echo DATABASE_URL=$DATABASE_URL >> .env
+      pg_start.sh
+      
 ports:
   - port: 8080
-    onOpen: open-preview
-  - port: 33060
-    onOpen: ignore
-  - port: 3306
-    onOpen: ignore
-
-vscode:
-  extensions:
-    - "denoland.vscode-deno"
