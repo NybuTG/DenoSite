@@ -1,14 +1,21 @@
-FROM gitpod/workspace-full
+FROM gitpod/workspace-full:latest
+
+# Install postgres
+USER root
+RUN apt-get update && apt-get install -y 
+        postgresql 
+        postgresql-contrib 
+    && apt-get clean && rm -rf /var/cache/apt/* && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
+
+# Setup postgres server for user gitpod
+USER gitpod
+ENV PATH="/usr/lib/postgresql/10/bin:$PATH"
+RUN mkdir -p ~/pg/data; mkdir -p ~/pg/scripts; mkdir -p ~/pg/logs; mkdir -p ~/pg/sockets; initdb -D pg/data/
+RUN echo '#!/bin/bash\npg_ctl -D ~/pg/data/ -l ~/pg/logs/log -o "-k ~/pg/sockets" start' > ~/pg/scripts/pg_start.sh
+RUN echo '#!/bin/bash\npg_ctl -D ~/pg/data/ -l ~/pg/logs/log -o "-k ~/pg/sockets" stop' > ~/pg/scripts/pg_stop.sh
+RUN chmod +x ~/pg/scripts/*
+ENV PATH="$HOME/pg/scripts:$PATH"
+
+ENV DATABASE_URL=postgres://gitpod@127.0.0.1/
 
 USER root
-
-# Install MySQL
-RUN install-packages mysql-server figlet \
- && mkdir -p /var/run/mysqld /var/log/mysql \
- && chown -R gitpod:gitpod /etc/mysql /var/run/mysqld /var/log/mysql /var/lib/mysql /var/lib/mysql-files /var/lib/mysql-keyring /var/lib/mysql-upgrade
-
-# Install our own MySQL config
-COPY mysql.cnf /etc/mysql/mysql.conf.d/mysqld.cnf
-
-# Install default-login for MySQL clients
-COPY client.cnf /etc/mysql/mysql.conf.d/client.cnf
