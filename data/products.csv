@@ -1,0 +1,95 @@
+id,name,type
+100,Potgrond 5L,fertilizer
+101,Potgrond 10L,fertilizer
+102,Potgrond 20L,fertilizer
+103,Potgrond 40L,fertilizer
+104,Potgrond 70L,fertilizer
+105,Potgrond 40L Lang werkend,fertilizer
+106,Zaai en stek 10L,fertilizer
+107,Zaai en stek 40L,fertilizer
+108,Tuinaarde 40L,fertilizer
+109,Bio moestuinaarde 40L,fertilizer
+110,Turfstrooisel 20L,fertilizer
+111,Turfstrooisel 50L,fertilizer
+112,Bio moestuinaarde 40L,fertilizer
+113,Compost 40L,fertilizer
+114,Rozen potgrond,fertilizer
+115,Kokospotgrond 40L,fertilizer
+116,Hortensia grond 20L,fertilizer
+117,Franse Boomschors 40L,fertilizer
+118,Hydrokorrel 40L,fertilizer
+119,Kalkkorrel 10Kg,fertilizer
+120,Kalkkorrel 20Kg (met magnesium),fertilizer
+121,Koemestkorrel 5Kg,fertilizer
+122,Koemestkorrel 10Kg,fertilizer
+123,Koemestkorrel 25Kg,fertilizer
+124,Kunstmest 12-10-18 5Kg,fertilizer
+125,Kunstmest 12-10-18 10Kg,fertilizer
+126,Kunstmest 12-10-18 20Kg,fertilizer
+127,Mevaki,fertilizer
+128,Mevaki plus,fertilizer
+129,Plospan pellet 14kg,pellet
+200,Sla,plant
+201,IJsbergsla,plant
+202,Rode eikebladsla,plant
+203,Andijvie,plant
+204,Sla Klein duimpje,plant
+205,Winterandijvie,plant
+206,Lollo Rosa,plant
+210,Spitskool,plant
+211,Bloemkool,plant
+212,Herfstbloemkool,plant
+213,Broccoli,plant
+214,Spruiten,plant
+215,Boerenkool,plant
+216,Witte kool,plant
+217,Witte bewaarkool,plant
+218,Rode kool,plant
+219,Rode bewaarkool,plant
+220,Koolrabi,plant
+221,koolraap,plant
+223,Rode biet,plant
+224,Ui,plant
+225,Zomerprei,plant
+226,Herfstprei,plant
+227,Winterprei,plant
+228,Knolvenkel,plant
+229,Knolselderij,plant
+231,tomaat sungold,plant
+232,Vleestomaat,plant
+233,Tomaat Tiny tim,plant
+234,Tomaat Sweet Million,plant
+235,Tomaat Antalya,plant
+236,Tomaat supersweet,plant
+237,Roma Tomaat,plant
+239,Gele courgette,plant
+240,Augurken,plant
+241,Kaskomkommer,plant
+242,Buitenkomkommer,plant
+243,Snack Komkomer,plant
+244,Courgette,plant
+245,Cantaloupe meloen,plant
+246,Watermeloen,plant
+247,Jalapeno peper,plant
+248,Snack paprika,plant
+249,rode paprika,plant
+250,Puntpaprika,plant
+251,Kruiden,plant
+252,Flespompoen,plant
+253,Bewaarpompoen,plant
+254,Rabarber klein,plant
+255,Rabarber groot,plant
+256,Aardbei ,plant
+258,Snijselderij,plant
+259,Dille,plant
+260,Dragon,plant
+261,Bleekselderij,plant
+262,Maggi ,plant
+263,Peterselie,plant
+264,Koreander,plant
+265,Oregano,plant
+266,Bieslook,plant
+267,Thijm,plant
+268,Basilicum,plant
+269,Munt,plant
+270,Kervel,plant
