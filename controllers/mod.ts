@@ -1,0 +1,1 @@
+export {post_register} from "./post_register.ts"
