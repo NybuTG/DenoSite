@@ -1,0 +1,71 @@
+.userbox {
+    width: 12vw;
+    /* height: 37vh; */
+    background-color: var(--WHITE);
+    position: fixed;
+    right: 0.5vw;
+    top: 5vw;
+    display: grid;
+    grid-template-columns: repeat(1fr, 3);
+    grid-auto-rows: max-content;
+    gap: 0.5vh;
+    overflow: hidden;
+    border-radius: 1vw;
+    filter: drop-shadow(0 0.5vh 0.5vh grey);
+}
+
+
+.userbox ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    
+}
+
+.userbox h4 {
+    background-color: var(--HIGHLIGHT);
+    margin: 0;
+    margin-left: -0.5vh;
+    /* padding: 2vh; */
+    /* width: 10vw; */
+    /* height: 5vh; */
+    margin-bottom: 2vh;
+    filter: drop-shadow(0 0.3vh 0.3vh var(--HIGHLIGHT_SHADOW));
+    color: var(--INPUT_BOX);
+}
+
+.userbox * {
+    height: 2.5vh;
+    padding: 0;
+    text-align: center;
+    padding: 1.5vh;
+    margin-left: -0.5vh;
+    font-size: 1.25vw;
+    transition: 0.25s
+}
+
+.userbox a:hover {
+    background-color: var(--HOVER);
+}
+
+.dramatic {
+    background-color: crimson;
+    color: var(--WHITE)
+}
+
+.icon {
+    background-image: url("/defaultuser.png");
+    width: 8vw;
+    height: 8vw;
+    border-radius: 20vw;
+    background-size: cover;
+    background-position: center;
+    margin-left: calc((12vw - 8vw)/2);
+    margin-bottom: 3vh;
+    filter: drop-shadow(0 0 0.5vh var(--WHITE_SHADOW));
+    background-color: var(--INPUT_BOX);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+

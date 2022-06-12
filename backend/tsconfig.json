@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
         "jsxFactory": "h",
-        "isolatedModules": false
     }
 }
