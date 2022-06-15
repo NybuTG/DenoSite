@@ -4,7 +4,7 @@ image:
 
 tasks:
   - name: Static Server
-    command: cd ./backend/public && python3 -m http.server 8080
+    command: cd ./backend/public && python3 -m http.server
   - name: DB Server
     command: cd ./backend && deno run --allow-all ./main.ts
     openMode: split-right
