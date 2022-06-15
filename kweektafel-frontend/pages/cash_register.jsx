@@ -1,78 +1,98 @@
 import NavBar from "../components/navbar.jsx"
-import Item from "../components/item.jsx"
-
+import Total from "../components/total.jsx"
 import styles from "../styles/CashRegister.module.css"
-import { useState, useEffect } from "react";
+import React from "react";
+import ItemList from "../components/itemlist.jsx";
+import Link from "next/link";
 
+class CashRegister extends React.Component {
 
-function CashRegister() {
-    const [items, setItems] = useState()
-    const [itemCopy, setItemCopy] = useState();
-    const [cart, setCart] = useState([]);
-    const [total, setTotal] = useState(0);
-    const [counted_cart, setCounted_cart] = useState([]);
-    const [discount, setDiscount] = useState(0);
-    const [search, setSearch] = useState("");
+    constructor(props) {
+        super(props)
 
-    // Actual fetch
-    const getItems = async () => {
-        const res = await fetch(
-            "http://192.168.2.12:8080/items"
-        ).then((res) => res.json());
-        setItems(res);
-        setItemCopy(res);
+        this.state = {
+            items: [],
+            itemCopy: [],
+            cart: [],
+            subtotal: 0,
+            counted_cart: [],
+            discount: 0,
+            search: "",
+        }
+    }
+
+    getItems = async () => {
+        fetch(
+            "http://localhost:8080/items"
+        ).then((res) => res.json()).then(res => {
+            this.setState({
+                items: res,
+                itemCopy: res,
+            });
+        });
+
     };
 
-    const handleAddCart = (item_props) => {
+    handleAddCart = (item_props) => {
 
         // React state is not synchronous
         // Copy has to be made to update `counted_cart`. State is not yet set  if the traditional cart would be given
         let copy = new Array();
-        for (let i=0; i < cart.length; i++) {
-            copy.push(cart[i])
+        for (let i=0; i < this.state.cart.length; i++) {
+            copy.push(this.state.cart[i])
         }
         copy.push(item_props)
-        setCart(copy);
-        
-        handleCart(copy);
+        this.setState({
+            cart: copy
+        })
+        this.handleCart(copy);
     };
 
     // Fetch when page loads
-    useEffect(() => {
-        getItems();
-    }, []);
-    
-    // Update when counted_cart  changes
-    useEffect(() => {
-        let total = 0;
-        counted_cart.map((item) => {
-            let price = +item.price * +item.count
-            total += price
-        })
-        setTotal(total);
-    }, [counted_cart])
-    
-    useEffect(() => {
-        let filtered = new Array();
-        if (itemCopy) {
-            itemCopy.map((item) => {
-                if (item.name.toUpperCase().includes(search.toUpperCase())) {
-                    filtered.push(item);
-                }
-            })
-            setItems(filtered);
-        }
-    }, [search])
+    componentDidMount() {
+        this.getItems();
+    }
 
-    const updateCart = (id, isDecrease) => {
+    componentDidUpdate(_, prevState) {
+        if (prevState.counted_cart !== this.state.counted_cart || prevState.discount !== this.state.discount) {
+            let total = 0;
+            this.state.counted_cart.map((item) => {
+                let price = +item.price * +item.count
+                total += price
+            })
+            
+            this.setState({
+                subtotal: total,
+                total: total - this.state.discount
+            });
+        }
+
+        if (prevState.search !== this.state.search) {
+            let filtered = new Array();
+            console.log(this.state.search)
+            if (this.state.itemCopy) {
+                this.state.itemCopy.map((item) => {
+                    if (item.name.toUpperCase().includes(this.state.search.toUpperCase())) {
+                        filtered.push(item);
+                    }
+                })
+                
+                this.setState({
+                    items: filtered,
+                });
+            }
+        }
+    }
+
+    updateCart = (id, isDecrease) => {
         let copy = new Array();
-        for (let i=0; i < counted_cart.length; i++) {
-            copy.push(counted_cart[i]);
+        for (let i=0; i < this.state.counted_cart.length; i++) {
+            copy.push(this.state.counted_cart[i]);
         }
 
         let copy_unsorted = new Array();
-        for (let i=0; i < cart.length; i++) {
-            copy_unsorted.push(cart[i]);
+        for (let i=0; i < this.state.cart.length; i++) {
+            copy_unsorted.push(this.state.cart[i]);
         }
 
         const value = (isDecrease ? -1 : 1);
@@ -95,11 +115,14 @@ function CashRegister() {
             copy_unsorted.splice(index_unsorted, 1);
         }
 
-        setCounted_cart(copy);
-        setCart(copy_unsorted);
+        this.setState({
+            counted_cart: copy,
+            cart: copy_unsorted,
+        })
     }
 
-    const handleCart = (cart) => {
+
+    handleCart = (cart) => {
         let ids = new Array();
         // Add all IDs to a list
         for (let i=0; i < cart.length; i++) {
@@ -121,65 +144,66 @@ function CashRegister() {
             }
         })
 
-        setCounted_cart(cart_new);
+        this.setState({
+            counted_cart: cart_new
+        })
     }
 
-    return (
-        <div className={styles.wrapper}>
-            
-            <div className={styles.container}>
-                <div className={styles.interface}>
-                    <div className={styles.totalWrapper}>
-                        <ul className={styles.total}>
-                            {counted_cart && counted_cart.map((item) => 
-                                <li key={item.id} className={styles.cartItem}>
-                                        <ul className={styles.listItem}>
-                                            
-                                            <li>{item.id}</li>
-                                            <li>{item.name}</li>
-                                            <li>€{item.price}</li>
-                                            <li>{item.count}x</li>
-                                            <li>
-                                                <a onClick={() => updateCart(item.id, false)}>+</a>/
-                                                <a onClick={() => updateCart(item.id, true)}>-</a>
-                                            </li>
-                                        </ul>
-                                </li>
-                            )}
-            
-                        </ul>
-                        <div className={styles.calcWrapper}>
-                            <div className={styles.calcTotal}>
-                                <h5 id={styles.subtotal}>Subtotaal:</h5>
-                                <p>€ {total.toFixed(2).toString().replace(".", ",")}</p>
-                            
-                                <h5 id={styles.discount}>Korting:</h5> 
-                                <p>€ <input placeholder="0,00" onChange={(e) => setDiscount(e.target.value.replace(",", "."))}></input></p>
-                            
-                                <h5 id={styles.total}>Totaal:</h5>
-                                <p> € {(+total - +discount).toFixed(2).replace(".", ",")}</p>
-                            </div>
-                         {/* End of calcTotal */}
+    updateDiscount = (newDiscount) => {
+        this.setState({
+            discount: newDiscount,
+        })
+    }
+
+    updateSearch = (search) => {
+        this.setState({
+            search: search,
+        })
+    }
+
+    handleSave = () => {
+        // e.preventDefault();
+        (async () => {
+            await fetch("http://localhost:8080/push_sale", {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    products: this.state.counted_cart,
+                    price: this.state.subtotal - this.state.discount,
+                    discount: this.state.discount,
+                })
+            }).then((res) => console.log(res));
+        })()
+    }
+    
+    render() {
+        return (
+            <div className={styles.wrapper}>
+                <div className={styles.container}>
+                    <div className={styles.interface}>
+                        <Total 
+                            counted_cart={this.state.counted_cart} cart={this.state.cart} items={this.state.items} total={this.state.subtotal}
+                            discount={this.state.discount} className={styles.total}
+                            updateCart={this.updateCart} updateDiscount={this.updateDiscount}
+                        />
+                        <ItemList
+                            items={this.state.items}
+                            updateSearch={this.updateSearch}
+                            handleAddCart={this.handleAddCart}
+                            className={styles.options}
+                        />
+                        <div className={styles.actions}>
+                            <a onClick={this.handleSave} className={styles.saveButton}>Verkoop Opslaan</a>
+                            <Link href="/cash_register"  className={[styles.deleteButton, styles.dramatic]}>Verkoop Verwijderen</Link>
                         </div>
-                    {/* End of totalwrapper */}
-                    </div>
-                    <div className={styles.searchbar}><input type="text" placeholder="Zoek door planten" onChange={(e) => setSearch(e.target.value)}/></div>
-                        <div style={{filter: "drop-shadow(0 0 0)"}} className={styles.options}>
-                            
-                            {items &&
-                                items.map((item) => (
-                                    <Item name={item.name} key={item.id} i_id={item.id} price={item.price} onClick={handleAddCart}/>
-                            ))}
-                        </div>
-                    <div className={styles.actions}>
-                        <p className={styles.saveButton}>Verkoop Opslaan</p>
-                        <a className={styles.deleteButton}>Verkoop Verwijderen</a>
                     </div>
                 </div>
+                <NavBar pageName="Artikelbeheer" username="Admin" />
             </div>
-            <NavBar pageName="Artikelbeheer" username="Admin" />
-        </div>
-    );
+        );
+    }
 }
 
 export default CashRegister;

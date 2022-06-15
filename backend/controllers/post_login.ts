@@ -31,11 +31,10 @@ const header: Header = {
 };
 
 export const post_login = async (ctx: any) => {
-    const body = await ctx.request.body({type: "form-data"})
-    let data = await body.value.read()
-    data = data.fields
+    const body = await ctx.request.body()
+    const data = await body.value
     const username = data.username;
-    const password = data.password;
+    const password = data.password
 
     try {
         // Check if user exists in database and fetch password immediatly as well
@@ -58,7 +57,7 @@ export const post_login = async (ctx: any) => {
 
                 const jwt = await create(header, payload, key);
                 await ctx.cookies.set("auth_token", jwt);
-                ctx.response.redirect("/");
+                ctx.response.redirect("/cash_register");
             }
             
             else {

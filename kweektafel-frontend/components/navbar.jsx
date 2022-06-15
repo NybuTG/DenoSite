@@ -1,6 +1,7 @@
 import styles from "../styles/NavBar.module.css"
 import React, { useState } from 'react';
 import UserModal from "./modal.jsx";
+import Link from "next/link";
 
 function NavBar(props) {
     const [isOpen, setIsOpen] = useState(false);
@@ -9,10 +10,11 @@ function NavBar(props) {
         <div>
             <nav className={styles.root}>
                 <ul className={styles.NavBar}>
-                    <li><a href="/cash_register">Kassa</a></li>
-                    <li><a href="/stats">Statistieken</a></li>
-                    <li><a href="/inventory">Artikelbeheer</a></li>
-                    <li><a href="/admin">Admin Panel</a></li>
+
+                    <li><Link href="/cash_register">Kassa</Link></li>
+                    <li><Link href="/stats">Statistieken</Link></li>
+                    <li><Link href="/sales">Verkopen</Link></li>
+                    {/* <li><Link href="/admin">Admin p</Link></li> */}
                     <li style={{float: "right"}}><a onClick={() => setIsOpen(true)}>{props.username}</a></li>
                 </ul>
             </nav>
@@ -22,8 +24,7 @@ function NavBar(props) {
                     <div className={styles.userbox}>
                         <h4>{props.username}</h4>
                         <div className={styles.icon} />
-                        <a href="">Account beheer</a>
-                        <a className={styles.dramatic} href="">Uitloggen</a>
+                        <a className={styles.dramatic} href="/uitloggen">Uitloggen</a>
                         {/* <a onClick={() => setIsOpen(false)}>Sluiten</a> */}
                     </div>
                 </UserModal>

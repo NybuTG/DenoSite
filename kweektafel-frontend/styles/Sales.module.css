@@ -1,0 +1,48 @@
+.wrapper {
+    background-color: var(--HIGHLIGHT_2);
+    height: calc(100vh - 10vw);
+    width: calc(100vw - 6vw);
+    margin: 3vw;
+    border-radius: 1.5vw;
+    filter: drop-shadow(0 0 1vw var(--HIGHLIGHT_SHADOW));
+    overflow-y: scroll;
+    
+}
+
+
+.container {
+    display: grid;
+    grid-template-rows: 7vh auto;
+}
+
+.salesItem {
+    background-color: var(--WHITE);
+    list-style: none;
+    padding: 1vw;
+    margin: 1vw;
+    border-radius: 0.5vw;
+    filter: drop-shadow(0 0.5vh 0.5vh var(--WHITE_SHADOW));
+    
+}
+
+/* .segment {
+    padding: 0.25vw;
+} */
+
+.wrapper > ul > li:nth-child(odd) {
+    background-color: var(--HIGHLIGHT);
+    filter: drop-shadow(0 0.5vh 0.5vh var(--HIGHLIGHT_SHADOW));
+    color: var(--INPUT_BOX)
+}
+
+
+.salesItem ul {
+    display: grid;
+    grid-template-columns: 4vw 7fr 4vw 1fr 3fr;
+    list-style-type: none;
+    grid-auto-columns: min-content;
+}
+
+.title {
+    font-weight: bold;
+}

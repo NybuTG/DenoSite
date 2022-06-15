@@ -17,18 +17,19 @@ const key = await crypto.subtle.importKey(
 )
 
 export const checkLogin = async (ctx: Context, next: any) => {
-    const token = await ctx.cookies.get("auth_token");
-    if (token) {
-        try {
-            await verify(token, key);
-            await next();
-        } catch (_) {
-            ctx.cookies.delete("auth_token");
-            ctx.response.redirect("/login");  
+    if (!String(ctx.request.url.pathname).includes("_next")) {
+        const token = await ctx.cookies.get("auth_token");
+        if (token) {
+            try {
+                await verify(token, key);
+                await next();
+            } catch (_) {
+                ctx.cookies.delete("auth_token");
+                ctx.response.redirect("/login");  
+            }
+            
+        } else {
+            ctx.response.redirect("/login");
         }
-        
-    } else {
-        ctx.response.redirect("/login");
     }
-    
 }

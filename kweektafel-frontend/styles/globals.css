@@ -28,7 +28,7 @@ a {
 }
 
 *::-webkit-scrollbar {
-  width: 0.75vw;               /* width of the entire scrollbar */
+  width: 0.75vw;                  /* width of the entire scrollbar */
 }
 
 *::-webkit-scrollbar-track {

@@ -64,3 +64,43 @@ export const getSingleItem = async (ctx: any) => {
         connection.release()
     }
 }
+
+export const pushSale = async (ctx: any) => {
+    const body = await ctx.request.body();
+    const data = await body.value
+    console.log(data);
+    try {
+        await connection.queryObject`
+            INSERT INTO sales (products, price, discount, date)
+            VALUES (${JSON.stringify(data.products)}, ${data.price}, ${data.discount}, ${String(new Date(Date.now())).substring(4,24)}) 
+        `
+    }
+    finally {
+        connection.release();
+    }
+
+}
+
+export const querySales = async (ctx: any) => {
+    try {
+        const res: any = await connection.queryObject`
+            SELECT * FROM sales
+        `
+        let resp = []
+        
+        for (let i=0; i < res.rows.length; i++) {
+            const data = res.rows[i]
+            resp.push({
+                "id": +String(data["id"]),
+                "products": JSON.parse(data.products),
+                "price": +data.price,
+                "discount": +data.discount,
+                "date": String(data.date).substring(4, 24)
+            })
+        }
+        ctx.response.body = resp;
+    }
+    finally {
+        connection.release()
+    }
+}
