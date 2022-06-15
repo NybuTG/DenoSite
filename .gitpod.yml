@@ -3,8 +3,10 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
-  - command: |
-      cd backend && deno run --allow-all --unstable main.ts & cd public && python -m http.server
+  - name: Python 
+    commmand: cd ./backend/public && python -m http.server
+  - name: Deno
+    command: cd ./backend && deno run --allow-all --unstable main.ts & 
 
 ports:
   - port: 8080
