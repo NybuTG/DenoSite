@@ -10,8 +10,7 @@
     "deploy": "next build && next export"
   },
   "dependencies": {
-    "@next/swc-win32-x64-msvc": "^12.1.6",
-    "@swc/core-win32-x64-msvc": "^1.2.194",
+
     "lodash": "^4.17.21",
     "next": "12.1.6",
     "react": "18.1.0",

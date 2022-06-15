@@ -31,10 +31,10 @@ const header: Header = {
 };
 
 export const post_login = async (ctx: any) => {
-    const body = await ctx.request.body()
-    const data = await body.value
+    const body = await ctx.request.body();
+    const data = await body.value;
     const username = data.username;
-    const password = data.password
+    const password = data.password;
 
     try {
         // Check if user exists in database and fetch password immediatly as well

@@ -67,8 +67,8 @@ export const getSingleItem = async (ctx: any) => {
 
 export const pushSale = async (ctx: any) => {
     const body = await ctx.request.body();
-    const data = await body.value
-    console.log(data);
+    const data = await body.value;
+    
     try {
         await connection.queryObject`
             INSERT INTO sales (products, price, discount, date)

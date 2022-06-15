@@ -174,7 +174,7 @@ class CashRegister extends React.Component {
                     price: this.state.subtotal - this.state.discount,
                     discount: this.state.discount,
                 })
-            }).then((res) => console.log(res));
+            }).then(window.location.replace("/cash_register"));
         })()
     }
     

@@ -1,5 +1,4 @@
 import styles from "../styles/Login.module.css"
-import routes from "../routes.json"
 import React, { useState } from "react"
 
 class Login extends React.Component {
@@ -19,14 +18,17 @@ class Login extends React.Component {
         const password = this.state.password;
         
         (async () => {
-            await fetch('http://localhost:8080/login', {
+            await fetch('http://localhost:8080/check_login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({username: username, password: password})
-            }
-        ).then(window.location.replace("http://localhost:8080/cash_register"));
+                body: JSON.stringify({
+                    username: this.state.username, 
+                    password: this.state.password,
+                })
+            }).then(window.location.replace("/cash_register"))
+            .catch(err => console.log(err));
     })();
         
     }
