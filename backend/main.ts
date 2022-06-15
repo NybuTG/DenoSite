@@ -67,7 +67,7 @@ vorige versie van de commandline.
 
 Groetjes, Derk Jan :(
 */
-app.use(middlewares.checkLogin);
+// app.use(middlewares.checkLogin);
 
 app.use(protected_router.routes());
 app.use(protected_router.allowedMethods());
