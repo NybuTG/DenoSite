@@ -3,10 +3,11 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
-  - name: Python 
-    commmand: cd ./backend/public && python -m http.server
-  - name: Deno
-    command: cd ./backend && deno run --allow-all --unstable main.ts & 
+  - name: Static Server
+    command: cd ./backend/public && python3 -m http.server 8080
+  - name: DB Server
+    command: cd ./backend && deno run --allow-all ./main.ts
+    openMode: split-right
 
 ports:
   - port: 8080
