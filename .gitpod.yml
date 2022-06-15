@@ -4,7 +4,7 @@ image:
 
 tasks:
   - command: |
-      cd backend && deno run --allow-all --unstable main.ts
+      cd backend && deno run --allow-all --unstable main.ts & cd public && python -m http.server
 
 ports:
   - port: 8080
