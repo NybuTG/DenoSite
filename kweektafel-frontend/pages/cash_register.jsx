@@ -196,7 +196,7 @@ class CashRegister extends React.Component {
                         />
                         <div className={styles.actions}>
                             <a onClick={this.handleSave} className={styles.saveButton}>Verkoop Opslaan</a>
-                            <Link href="/cash_register"  className={[styles.deleteButton, styles.dramatic]}>Verkoop Verwijderen</Link>
+                            <a onClick={() => {window.location.replace("/cash_register")}}  className={[styles.deleteButton, styles.dramatic]}>Verkoop Verwijderen</a>
                         </div>
                     </div>
                 </div>

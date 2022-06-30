@@ -1,6 +1,6 @@
 import { Application, Router, send} from "https://deno.land/x/oak@v10.5.1/mod.ts";
 import { oakCors } from "https://deno.land/x/cors/mod.ts";
-// import { viewEngine, etaEngine, oakAdapter } from "https://deno.land/x/view_engine@v10.5.1c/mod.ts"
+import { viewEngine, etaEngine, oakAdapter } from "https://deno.land/x/view_engine@v10.5.1c/mod.ts"
 import { proxy } from "https://deno.land/x/oak_http_proxy@2.0.1/mod.ts";
 import * as controllers from "./controllers/mod.ts";
 import * as middlewares from "./middlewares/mod.ts";
@@ -10,15 +10,17 @@ const protected_router = new Router();
 const unprotected_router = new Router();
 const rest_api = new Router();
 
-// app.use(
-//     viewEngine(oakAdapter, etaEngine, {
-//         viewRoot: "./public",
-//     })
-// );
+app.use(
+    viewEngine(oakAdapter, etaEngine, {
+        viewRoot: "./public",
+    })
+);
 
 unprotected_router
     .post("/check_login", controllers.post_login)
-    .get("/login", proxy("http://localhost:8000/login.html"))
+    .get("/login", (ctx) => {
+        ctx.render("login.html")
+    })
     .put("/push_sale", controllers.restApi.pushSale)
 
 protected_router
@@ -31,8 +33,12 @@ protected_router
         ctx.response.redirect("/login");
     })
     .get("/admin", controllers.get_admin)
-    .get("/cash_register", proxy("http://localhost:8000/cash_register.html"))
-    .get("/stats", proxy("http://localhost:8000/stats.html"))
+    .get("/cash_register", (ctx) => {
+        ctx.render("cash_register.html")
+    })
+    .get("/stats", (ctx) => {
+        ctx.render("stats.html")
+    })
 
 rest_api
     .get("/items/sales", controllers.restApi.querySales)
@@ -43,7 +49,7 @@ rest_api
     
 
 
-// app.use(oakCors());
+app.use(oakCors());
 
 app.use(middlewares.serveStatic);
 app.use(unprotected_router.routes())
