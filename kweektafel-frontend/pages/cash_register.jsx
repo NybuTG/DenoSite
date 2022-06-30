@@ -3,7 +3,10 @@ import Total from "../components/total.jsx"
 import styles from "../styles/CashRegister.module.css"
 import React from "react";
 import ItemList from "../components/itemlist.jsx";
-import Link from "next/link";
+
+const ROOT = "http://kweektafel.nybu-nerd.xyz"
+
+
 
 class CashRegister extends React.Component {
 
@@ -196,7 +199,7 @@ class CashRegister extends React.Component {
                         />
                         <div className={styles.actions}>
                             <a onClick={this.handleSave} className={styles.saveButton}>Verkoop Opslaan</a>
-                            <a onClick={() => {window.location.replace("/cash_register")}}  className={[styles.deleteButton, styles.dramatic]}>Verkoop Verwijderen</a>
+                            <a onClick={() => {window.location.replace()}}  className={[styles.deleteButton, styles.dramatic]}>Verkoop Verwijderen</a>
                         </div>
                     </div>
                 </div>
