@@ -27,7 +27,7 @@ class Login extends React.Component {
                     username: this.state.username, 
                     password: this.state.password,
                 })
-            }).then(window.location.replace("/cash_register"))
+            })
             .catch(err => console.log(err));
     })();
         

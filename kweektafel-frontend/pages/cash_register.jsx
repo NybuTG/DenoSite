@@ -26,7 +26,7 @@ class CashRegister extends React.Component {
 
     getItems = async () => {
         fetch(
-            "http://localhost:8080/items"
+            "http://kweektafel.nybu-nerd.xyz/items"
         ).then((res) => res.json()).then(res => {
             this.setState({
                 items: res,
@@ -166,8 +166,9 @@ class CashRegister extends React.Component {
 
     handleSave = () => {
         // e.preventDefault();
+        
         (async () => {
-            await fetch("http://localhost:8080/push_sale", {
+            await fetch("http://kweektafel.nybu-nerd.xyz/push_sale", {
                 method: "PUT",
                 headers: {
                     'Content-Type': 'application/json',
@@ -176,9 +177,14 @@ class CashRegister extends React.Component {
                     products: this.state.counted_cart,
                     price: this.state.subtotal - this.state.discount,
                     discount: this.state.discount,
-                })
-            }).then(window.location.replace("/cash_register"));
-        })()
+                }),
+                redirect: "follow"
+            }).then((res) => {
+                if (res.redirected) {
+                    window.location.href = "/cash_register"; 
+                }
+            })
+        })();
     }
     
     render() {

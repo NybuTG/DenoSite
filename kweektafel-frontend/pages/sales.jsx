@@ -13,7 +13,7 @@ class Sales extends React.Component {
     }
 
     getSales = async () => {
-        await fetch("http://localhost:8080/items/sales").then(res => res.json()).then(res => this.setState({sales: res}))
+        await fetch("http://kweektafel.nybu-nerd.xyz/items/sales").then(res => res.json()).then(res => this.setState({sales: res}))
     }
 
     componentDidMount() {
