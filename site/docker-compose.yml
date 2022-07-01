@@ -1,0 +1,11 @@
+services:
+    deno:
+        container_name: deno
+        image: deno
+        restart: always
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: base
+        ports:
+            - "1923:1923"

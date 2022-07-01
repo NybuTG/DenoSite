@@ -58,25 +58,10 @@ app.use(unprotected_router.allowedMethods());
 app.use(rest_api.routes());
 app.use(rest_api.allowedMethods());
 
-
-/* 
-Hallo meneer...
-Het is inmiddels half 11 en het is op het moment
-gekomen dat de code die wekenlang werkte er magisch mee is gestopt.
-
-Ik denk dat het aan de frontend ligt na 2 uur lang debuggen. 
-Het probleem is: De error melding is onduidelijk en ik meet alleen dat er geen POST request 
-word gestuurd voor het inloggen.
-
-De checkLogin code klopt echter wel en werkte op een 
-vorige versie van de commandline.
-
-Groetjes, Derk Jan :(
-*/
-// app.use(middlewares.checkLogin);
+app.use(middlewares.checkLogin);
 
 app.use(protected_router.routes());
 app.use(protected_router.allowedMethods());
 
 console.log("server started at http://localhost:8080");
-await app.listen({port: 8080});
+await app.listen({port: 1923});

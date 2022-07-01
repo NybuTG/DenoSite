@@ -13,7 +13,7 @@ const getMoney = async () => {
     const pricePerMonth = [0, 0, 0, 0, 
                            0, 0, 0, 0, 
                            0, 0, 0, 0];
-    await fetch("http://localhost:8080/items/sales").then((res) => res.json()).then((res) => res.map((sale) => {
+    await fetch("http://kweektafel.nybu-nerd.xyz/items/sales").then((res) => res.json()).then((res) => res.map((sale) => {
         const month = new Date(sale.date).getMonth();
         // console.log("Months", month)
         pricePerMonth[month] += sale.price

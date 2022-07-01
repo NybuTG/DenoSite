@@ -1,4 +1,4 @@
-import { Context, RouterContext } from "https://deno.land/x/oak@v10.5.1/mod.ts";
+import { Context, RouterContext, Status } from "https://deno.land/x/oak@v10.5.1/mod.ts";
 import * as postgres from "https://deno.land/x/postgres@v0.14.0/mod.ts";
 import { config } from "https://deno.land/x/dotenv@v3.2.0/mod.ts";
 
@@ -78,7 +78,8 @@ export const pushSale = async (ctx: any) => {
     finally {
         connection.release();
     }
-
+    ctx.response.status = Status.SeeOther;
+    ctx.response.redirect = "http://kweektafel.nybu-nerd.xyz/cash_register"
 }
 
 export const querySales = async (ctx: any) => {

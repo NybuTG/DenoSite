@@ -24,6 +24,16 @@ export const checkLogin = async (ctx: Context, next: any) => {
                 await verify(token, key);
                 await next();
             } catch (_) {
+                // Generate JWT cookie
+                const payload: Payload = {
+                    name: username,
+                    iss: "Kweektafel",
+                    exp: getNumericDate(300),
+                    aud: ["admin"],
+                }
+
+                const jwt = await create(header, payload, key);
+                await ctx.cookies.set("auth_token", jwt);
                 ctx.cookies.delete("auth_token");
                 ctx.response.redirect("/login");  
             }

@@ -57,6 +57,7 @@ export const post_login = async (ctx: any) => {
 
                 const jwt = await create(header, payload, key);
                 await ctx.cookies.set("auth_token", jwt);
+		ctx.response.status = Status.Ok
                 ctx.response.redirect("/cash_register");
             }
             

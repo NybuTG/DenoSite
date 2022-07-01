@@ -18,7 +18,7 @@ const getMoney = async () => {
         pricePerHour.push(0);
     }
     console.log()
-    await fetch("http://localhost:8080/items/sales").then((res) => res.json()).then((res) => res.map((sale) => {
+    await fetch("http://kweektafel.nybu-nerd.xyz/items/sales").then((res) => res.json()).then((res) => res.map((sale) => {
         const date = new Date(sale.date)
 
         if (date.getMonth() == currentDate.getMonth() && date.getDate() == currentDate.getDate()) {

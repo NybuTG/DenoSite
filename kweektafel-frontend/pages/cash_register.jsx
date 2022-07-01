@@ -180,7 +180,9 @@ class CashRegister extends React.Component {
                 }),
                 redirect: "follow"
             }).then((res) => {
-                if (res.redirected) {
+		console.log(res);
+                if (res.status == 303) {
+		    console.log("redirecting...");
                     window.location.href = "/cash_register"; 
                 }
             })
@@ -205,7 +207,7 @@ class CashRegister extends React.Component {
                         />
                         <div className={styles.actions}>
                             <a onClick={this.handleSave} className={styles.saveButton}>Verkoop Opslaan</a>
-                            <a onClick={() => {window.location.replace()}}  className={[styles.deleteButton, styles.dramatic]}>Verkoop Verwijderen</a>
+                            <a onClick={() => {window.location.replace("/cash_register")}}  className={[styles.deleteButton, styles.dramatic]}>Verkoop Verwijderen</a>
                         </div>
                     </div>
                 </div>

@@ -18,7 +18,7 @@ class Login extends React.Component {
         const password = this.state.password;
         
         (async () => {
-            await fetch('http://localhost:8080/check_login', {
+            await fetch('http://kweektafel.nybu-nerd.xyz/check_login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -27,7 +27,11 @@ class Login extends React.Component {
                     username: this.state.username, 
                     password: this.state.password,
                 })
-            })
+            }).then((res) => {
+		if (res.status == 200) {
+		    window.location.href = "/cash_register"
+		}
+	    })
             .catch(err => console.log(err));
     })();
         
